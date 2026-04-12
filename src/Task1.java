@@ -1,5 +1,69 @@
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Scanner;
 
+class Node {
+    int data;
+    Node next;
+    Node(int new_data){
+        data = new_data;
+        next = null;
+    }
+}
+class myQueue {
+    private Node front;
+    private Node rear;
+    public myQueue(){
+        front = rear = null;
+    }
+    public void enqueue(int new_data) {
+        Node new_node = new Node(new_data);
+        if (isEmpty()) {
+            front = rear = new_node;
+        } else {
+            rear.next = new_node;
+            rear = new_node;
+        }
+    }
+    public boolean isEmpty() {
+        return front == null;
+    }
+    public int getfront() {
+        if (isEmpty()) {
+            return -1;
+        }
+        return front.data;
+    }
+    public void dequeue() {
+        if (isEmpty()) return;
+        front = front.next;
+        if (front == null) rear = null;
+    }
+}
+class myStack {
+    private int top;
+    private int[] arr;
+    private int capacity;
+
+    public myStack(int cap) {
+        capacity = cap;
+        arr = new int [capacity];
+        top = -1;
+    }
+    public void push(int x){
+        if (top == capacity - 1) return;
+        arr[++top] = x;
+    }
+    public int peek(){
+        return (top == -1) ? -1 : arr[top];
+    }
+    public int pop(){
+        if (top == -1) return -1;
+        return arr[top--];
+    }
+    public boolean isEmpty(){
+        return top == -1;
+    }
+}
 class BankAccount {
     String accountNumber;
     String username;
@@ -11,12 +75,9 @@ class BankAccount {
         this.balance = balance;
     }
 }
-
 public class Task1 {
-
     static LinkedList<BankAccount> accounts = new LinkedList<>();
     static Scanner scanner = new Scanner(System.in);
-
     public static void main(String[] args) {
         int choice;
         do {
@@ -28,10 +89,11 @@ public class Task1 {
             choice = scanner.nextInt();
             scanner.nextLine();
 
-            if (choice == 1) addAccount();
-            else if (choice == 2) displayAccounts();
-            else if (choice == 3) searchAccount();
-
+            switch(choice) {
+                case 1 -> addAccount();
+                case 2 -> displayAccounts();
+                case 3 -> searchAccount();
+            }
         } while (choice != 0);
     }
 
@@ -56,7 +118,6 @@ public class Task1 {
             System.out.println(i++ + ". " + acc.username + " -- Balance: " + acc.balance);
         }
     }
-
     static void searchAccount() {
         System.out.print("Enter username: ");
         String name = scanner.nextLine();
