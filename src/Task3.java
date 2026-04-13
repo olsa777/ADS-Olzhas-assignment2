@@ -1,6 +1,5 @@
 import java.util.*;
 
-// ── Node: one box that holds data and points to the next box ──
 class Node<T> {
     T data;
     Node<T> next;
@@ -11,18 +10,15 @@ class Node<T> {
     }
 }
 
-// ── MyStack: Last In First Out (LIFO) built with Node ─────────
 class MyStack<T> {
-    private Node<T> top;  // top of the stack
+    private Node<T> top;
 
-    // push: add to the top
     void push(T data) {
         Node<T> newNode = new Node<>(data);
         newNode.next = top;
         top = newNode;
     }
 
-    // pop: remove and return from the top
     T pop() {
         if (isEmpty()) return null;
         T data = top.data;
@@ -30,7 +26,6 @@ class MyStack<T> {
         return data;
     }
 
-    // peek: just look at the top, don't remove
     T peek() {
         if (isEmpty()) return null;
         return top.data;
@@ -41,7 +36,6 @@ class MyStack<T> {
     }
 }
 
-// ── BankAccount ───────────────────────────────────────────────
 class BankAccount {
     String accountNumber;
     String username;
@@ -57,7 +51,7 @@ class BankAccount {
 public class Task3 {
 
     static LinkedList<BankAccount> accounts = new LinkedList<>();
-    static MyStack<String> transactionHistory = new MyStack<>();  // NEW in Task 3
+    static MyStack<String> transactionHistory = new MyStack<>();
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -86,7 +80,6 @@ public class Task3 {
         } while (choice != 0);
     }
 
-    // ── Task 1 methods ───────────────────────────
 
     static void addAccount() {
         System.out.print("Account number: ");
@@ -129,7 +122,6 @@ public class Task3 {
         return null;
     }
 
-    // ── Task 2 methods ───────────────────────────
 
     static void deposit() {
         System.out.print("Enter username: ");
@@ -163,7 +155,6 @@ public class Task3 {
         transactionHistory.push("Withdraw " + amount + " from " + name);
     }
 
-    // ── Task 3 methods ───────────────────────────
 
     static void viewLastTransaction() {
         if (transactionHistory.isEmpty()) { System.out.println("No transactions yet."); return; }
